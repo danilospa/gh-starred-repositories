@@ -22,3 +22,8 @@ To run the tests, execute:
 ```bash
 $ yarn test
 ```
+
+To build the application, run:
+```bash
+$ yarn build
+```
