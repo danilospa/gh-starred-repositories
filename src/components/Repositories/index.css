@@ -1,0 +1,27 @@
+.repositories {
+  max-width: 864px;
+  padding: 0 16px;
+  margin: 48px auto;
+}
+
+.repositories-header {
+  font-size: 24px;
+  color: #484848;
+  padding: 0 0 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e5e5e5
+}
+
+.repositories-header__options {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.repositories-header__sort-wrapper {
+  margin-left: auto;
+}
+
+.repositories__list {
+  display: flex;
+  flex-wrap: wrap;
+}

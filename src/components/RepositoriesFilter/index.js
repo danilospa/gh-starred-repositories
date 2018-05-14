@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './index.css';
 
 class RepositoriesFilter extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class RepositoriesFilter extends Component {
   render() {
     return (
       <div>
-        <label>Filter by language:</label>
+        <label className="repositories-filter__label">Filter by language:</label>
         <select onChange={this.handleLanguageChange} value={this.state.language}>
           {this.props.languages.map((language, i) => (
             <option key={i} value={language}>{language}</option>

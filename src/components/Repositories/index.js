@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Repository from '../Repository';
 import RepositoriesFilter from '../RepositoriesFilter';
 import RepositoriesSort from '../RepositoriesSort';
+import './index.css';
 
 class Repositories extends Component {
   constructor(props) {
@@ -41,10 +42,15 @@ class Repositories extends Component {
     const sortableFields = ['name', 'open_issues_count', 'stargazers_count'];
 
     return (
-      <div>
-        <RepositoriesFilter handleFilter={this.handleFilter} languages={distinctLanguages} />
-        <RepositoriesSort handleSort={this.handleSort} fields={sortableFields} />
-        <div>
+      <div className="repositories">
+        <h1 className="repositories-header">Github Starred Repositories</h1>
+        <div className="repositories-header__options">
+          <RepositoriesFilter handleFilter={this.handleFilter} languages={distinctLanguages} />
+          <div className="repositories-header__sort-wrapper">
+            <RepositoriesSort handleSort={this.handleSort} fields={sortableFields} />
+          </div>
+        </div>
+        <div className="repositories__list">
           {orderedRepositories.map((repository, i) => (
             <Repository key={i} repository={repository} />
           ))}

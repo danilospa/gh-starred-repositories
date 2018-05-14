@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './index.css';
 
 class RepositoriesSort extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class RepositoriesSort extends Component {
   render() {
     return (
       <div>
-        <label>Sort by:</label>
+        <label className="repositories-sort__label">Sort by:</label>
         <select onChange={this.handleFieldChange} value={this.state.field}>
           {this.props.fields.map((field, i) => (
             <option key={i} value={field}>{field}</option>

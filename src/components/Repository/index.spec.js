@@ -8,6 +8,8 @@ describe('Repository Component', () => {
   beforeEach(() => {
     repository = {
       name: 'repo name',
+      description: 'repo description',
+      language: 'repo language',
       open_issues_count: 'open issues count',
       stargazers_count: 'stargazers count',
     };
@@ -15,14 +17,22 @@ describe('Repository Component', () => {
   });
 
   it('renders correct name', () => {
-    expect(component.find('p').text()).toMatch('repo name');
+    expect(component.find('h3').text()).toMatch('repo name');
+  });
+
+  it('renders correct description', () => {
+    expect(component.find('p').at(0).text()).toMatch('repo description');
+  });
+
+  it('renders correct language', () => {
+    expect(component.find('p').at(1).text()).toMatch('language');
   });
 
   it('renders correct open_issues_count', () => {
-    expect(component.find('p').text()).toMatch('open issues count');
+    expect(component.find('p').at(2).text()).toMatch('open issues count');
   });
 
   it('renders correct stargazers_count', () => {
-    expect(component.find('p').text()).toMatch('stargazers count');
+    expect(component.find('p').at(3).text()).toMatch('stargazers count');
   });
 });
