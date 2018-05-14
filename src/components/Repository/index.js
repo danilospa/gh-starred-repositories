@@ -5,7 +5,7 @@ class Repository extends Component {
   render() {
     const { repository } = this.props;
     return (
-      <div className="repository">
+      <a href={repository.url} target="_blank" className="repository">
         <h3 className="repository__header">{repository.name}</h3>
         <div className="repository__content">
           <p><strong>Description</strong>: {repository.description}</p>
@@ -13,7 +13,7 @@ class Repository extends Component {
           <p><strong>Open issues count</strong>: {repository.open_issues_count}</p>
           <p><strong>Stargazers count</strong>: {repository.stargazers_count}</p>
         </div>
-      </div>
+      </a>
     );
   }
 }
