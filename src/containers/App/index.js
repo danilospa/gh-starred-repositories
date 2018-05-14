@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
-import './index.css';
+import Repositories from '../../components/Repositories';
+import githubApi from '../../clients/githubApi';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      repositories: [],
+    };
+  }
+
+  componentWillMount() {
+    githubApi.getStarredRepositoriesForUser('rodrigorm', { fetchAll: true })
+      .then(repositories => this.setState({ repositories }));
+  }
+
   render() {
-    return (<p>Hello word</p>);
+    return (
+      <Repositories repositories={this.state.repositories} />
+    );
   }
 }
 
