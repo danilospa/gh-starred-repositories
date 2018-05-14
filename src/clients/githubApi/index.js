@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { GITHUB_API_BASE_URL } from '../../config'
 
-const MAX_FETCH_SIZE = 100;
+const MAX_FETCH_SIZE = 100; // Max GH page size
 
 async function getStarredRepositoriesForUser(user, options = {}) {
   const { page, pageSize, fetchAll } = options;
@@ -16,6 +16,7 @@ async function getStarredRepositoriesForUser(user, options = {}) {
     }
 
     const lastPage = _getLastPage(headers.link);
+    // Performs parallel requests for other pages
     const otherResponses = await Promise.all(Array(lastPage - 1).fill().map((_, i) => {
       const page = i + 2;
       return axios.get(`${URL}&page=${page}`);
