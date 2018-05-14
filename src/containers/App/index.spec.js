@@ -10,23 +10,61 @@ function flushPromises() {
 }
 
 describe('App Container', () => {
-  let component, repositoriesMock;
+  let component;
 
   beforeEach(() => {
-    repositoriesMock = ['first repository', 'second repository'];
-    githubApi.getStarredRepositoriesForUser.mockReturnValue(new Promise((resolve) => resolve(repositoriesMock)));
     component = shallow(<App />);
   });
 
-  it('fetches repositories from github api when user changes', () => {
-    component.instance().handleUserChange('user');
-    expect(githubApi.getStarredRepositoriesForUser).toBeCalledWith('user', { fetchAll: true });
+  describe('when user changes and when request is successfull', () => {
+    let repositoriesMock;
+
+    beforeEach(() => {
+      repositoriesMock = ['first repository', 'second repository'];
+      githubApi.getStarredRepositoriesForUser.mockReturnValue(new Promise((resolve) => resolve(repositoriesMock)));
+      component.instance().handleUserChange('user');
+    });
+
+    it('fetches repositories from github api', () => {
+      expect(githubApi.getStarredRepositoriesForUser).toBeCalledWith('user', { fetchAll: true });
+    });
+
+    it('passes correct props to Repositories', async () => {
+      await flushPromises();
+      component.update();
+      expect(component.find('Repositories').props().repositories).toEqual(repositoriesMock);
+    });
+
+    it('passes no message to ErrorMessage', async () => {
+      await flushPromises();
+      component.update();
+      expect(component.find('ErrorMessage').props().message).toEqual(null);
+    });
   });
 
-  fit('passes correct props to Repositories when user changes', async () => {
-    component.instance().handleUserChange('user');
-    await flushPromises();
-    component.update();
-    expect(component.find('Repositories').props().repositories).toEqual(repositoriesMock);
+  describe('when user changes and when request fails', () => {
+    beforeEach(() => {
+      const failedResponse = {
+        response: {
+          data: {
+            message: 'error message',
+          },
+        },
+      };
+      githubApi.getStarredRepositoriesForUser.mockReturnValue(new Promise((_, reject) => reject(failedResponse)));
+      component.instance().handleUserChange('user');
+    });
+
+    it('passes correct props to Repositories', async () => {
+      await flushPromises();
+      component.update();
+      expect(component.find('Repositories').props().repositories).toEqual([]);
+    });
+
+    it('passes no message to ErrorMessage', async () => {
+      await flushPromises();
+      component.update();
+      expect(component.find('ErrorMessage').props().message).toEqual('error message');
+    });
   });
 });
