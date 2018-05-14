@@ -28,7 +28,7 @@ class Repositories extends Component {
 
   render() {
     const { repositories } = this.props;
-    const { filter } = this.state;
+    const { filter, sortBy } = this.state;
 
     const languages = repositories.map(r => r.language);
     const distinctLanguages = languages.filter((lang, i) => languages.indexOf(lang) === i)
@@ -36,7 +36,15 @@ class Repositories extends Component {
       ? repositories.filter(r => r.language === filter.language)
       : repositories;
     const orderedRepositories = filteredRepositories.slice().sort((a, b) => {
-      return a[this.state.sortBy.field].toString().localeCompare(b[this.state.sortBy.field].toString());
+      const firstValue = a[sortBy.field];
+      const secondValue = b[sortBy.field];
+      if (firstValue < secondValue) {
+        return -1;
+      } else if (firstValue > secondValue) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
 
     const sortableFields = ['name', 'open_issues_count', 'stargazers_count'];
