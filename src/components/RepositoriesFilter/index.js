@@ -13,7 +13,7 @@ class RepositoriesFilter extends Component {
 
   handleLanguageChange(event) {
     const { value } = event.target;
-    this.setState({ language: value});
+    this.setState({ language: value });
     this.props.handleFilter({ language: value });
   }
 

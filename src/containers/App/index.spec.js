@@ -5,6 +5,10 @@ import githubApi from '../../clients/githubApi';
 
 jest.mock('../../clients/githubApi');
 
+function flushPromises() {
+  return new Promise(resolve => setImmediate(resolve));
+}
+
 describe('App Container', () => {
   let component, repositoriesMock;
 
@@ -14,11 +18,14 @@ describe('App Container', () => {
     component = shallow(<App />);
   });
 
-  it('fetches repositories from github api', () => {
-    expect(githubApi.getStarredRepositoriesForUser).toBeCalledWith('rodrigorm', { fetchAll: true });
+  it('fetches repositories from github api when user changes', () => {
+    component.instance().handleUserChange('user');
+    expect(githubApi.getStarredRepositoriesForUser).toBeCalledWith('user', { fetchAll: true });
   });
 
-  it('passes correct props to Repositories', () => {
+  fit('passes correct props to Repositories when user changes', async () => {
+    component.instance().handleUserChange('user');
+    await flushPromises();
     component.update();
     expect(component.find('Repositories').props().repositories).toEqual(repositoriesMock);
   });

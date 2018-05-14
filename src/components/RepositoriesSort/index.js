@@ -13,7 +13,7 @@ class RepositoriesSort extends Component {
 
   handleFieldChange(event) {
     const { value } = event.target;
-    this.setState({ field: value});
+    this.setState({ field: value });
     this.props.handleSort({ field: value });
   }
 
