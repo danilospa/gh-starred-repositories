@@ -11,7 +11,9 @@ class Repositories extends Component {
     this.handleFilter = this.handleFilter.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.state = {
-      filter: {},
+      filter: {
+        language: 'all'
+      },
       sortBy: {
         field: 'name',
       },
@@ -32,7 +34,7 @@ class Repositories extends Component {
 
     const languages = repositories.map(r => r.language);
     const distinctLanguages = languages.filter((lang, i) => languages.indexOf(lang) === i)
-    const filteredRepositories = filter.language
+    const filteredRepositories = filter.language !== 'all'
       ? repositories.filter(r => r.language === filter.language)
       : repositories;
     const orderedRepositories = filteredRepositories.slice().sort((a, b) => {

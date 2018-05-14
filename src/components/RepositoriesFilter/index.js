@@ -22,6 +22,7 @@ class RepositoriesFilter extends Component {
       <div>
         <label className="repositories-filter__label">Filter by language:</label>
         <select onChange={this.handleLanguageChange} value={this.state.language}>
+          <option value={'all'}>All languages</option>
           {this.props.languages.map((language, i) => (
             <option key={i} value={language}>{language}</option>
           ))}

@@ -12,13 +12,15 @@ describe('RepositoriesFilter Component', () => {
   });
 
   it('renders correct languages label in select', () => {
-    expect(component.find('option').first().text()).toEqual('ruby');
-    expect(component.find('option').at(1).text()).toEqual('js');
+    expect(component.find('option').first().text()).toEqual('All languages');
+    expect(component.find('option').at(1).text()).toEqual('ruby');
+    expect(component.find('option').at(2).text()).toEqual('js');
   });
 
   it('renders correct languages value in select', () => {
-    expect(component.find('option').first().props().value).toEqual('ruby');
-    expect(component.find('option').at(1).props().value).toEqual('js');
+    expect(component.find('option').first().props().value).toEqual('all');
+    expect(component.find('option').at(1).props().value).toEqual('ruby');
+    expect(component.find('option').at(2).props().value).toEqual('js');
   });
 
   describe('when changing language', () => {
