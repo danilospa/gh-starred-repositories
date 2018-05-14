@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 class Repository extends Component {
   render() {
-    return (<p>{this.props.repository.name}</p>);
+    const { repository } = this.props;
+    return (<p>{repository.name} - {repository.open_issues_count} - {repository.stargazers_count}</p>);
   }
 }
 
